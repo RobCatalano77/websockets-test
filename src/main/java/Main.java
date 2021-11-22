@@ -45,7 +45,6 @@ public class Main {
             printToStream("there\n");
             Thread.sleep(1000);
             printToStream("done\n");
-            res.header("Content-Length", "hhhi".length() + "");
             Thread.sleep(1000);
             out.close();
             return "";
