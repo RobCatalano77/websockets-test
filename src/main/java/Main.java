@@ -1,9 +1,12 @@
 import javax.servlet.ServletOutputStream;
 
+import com.google.gson.Gson;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.msgpack.core.*;
 
@@ -12,7 +15,15 @@ import static spark.Spark.*;
 public class Main {
 
     static ServletOutputStream out;
+
+    static HashMap<String, String> data = new HashMap<>();
+
     public static void main(String[] args) throws IOException {
+
+        data.put("{\"key\": \"USD/BND\", \"asOfTime\":\"2021-10-2\"}", "\"type\": \"Core.Quote.4\"");
+
+        Gson gson = new Gson();
+        String jsonData = gson.toJson(data);
 
         MessageBufferPacker packer = MessagePack.newDefaultBufferPacker();
         packer
@@ -33,7 +44,8 @@ public class Main {
 
         get("/hello3", (req, res) -> {
             out = res.raw().getOutputStream();
-            printToStream(packer.toByteArray());
+            System.out.println(jsonData);
+            printToStream(jsonData);
             out.close();
             return "";
         });
