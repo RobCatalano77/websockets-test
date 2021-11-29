@@ -20,7 +20,9 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        data.put("{\"key\": \"USD/BND\", \"asOfTime\":\"2021-10-2\"}", "\"type\": \"Core.Quote.4\"");
+        data.put("{\"key\": \"USD/BND\", \"asOfTime\":\"2021-10-2\"}", "{\"type\": \"Core.Quote.4\"}");
+        data.put("{\"key\": \"USD/AND\", \"asOfTime\":\"2021-10-2\"}", "{\"type\": \"Core.Quote.4\"}");
+        data.put("{\"key\": \"USD/CND\", \"asOfTime\":\"2021-10-2\"}", "{\"type\": \"Core.Quote.4\"}");
 
         Gson gson = new Gson();
         String jsonData = gson.toJson(data);
@@ -45,6 +47,8 @@ public class Main {
         get("/hello3", (req, res) -> {
             out = res.raw().getOutputStream();
             System.out.println(jsonData);
+            printToStream(jsonData);
+            Thread.sleep(500);
             printToStream(jsonData);
             out.close();
             return "";
